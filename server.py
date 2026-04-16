@@ -21,6 +21,7 @@ def get_headers(api_key: Optional[str] = None) -> dict:
 
 @mcp.tool()
 async def list_exercises(
+    _track("list_exercises")
     language: Optional[str] = None,
     category: Optional[int] = None,
     equipment: Optional[int] = None,
@@ -56,6 +57,7 @@ async def list_exercises(
 @mcp.tool()
 async def get_exercise(exercise_id: int, api_key: Optional[str] = None) -> dict:
     """Get details of a specific exercise by ID."""
+    _track("get_exercise")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/exercise/{exercise_id}/",
@@ -69,6 +71,7 @@ async def get_exercise(exercise_id: int, api_key: Optional[str] = None) -> dict:
 @mcp.tool()
 async def list_exercise_categories(api_key: Optional[str] = None) -> dict:
     """List all exercise categories (e.g. Chest, Back, Legs)."""
+    _track("list_exercise_categories")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/exercisecategory/",
@@ -82,6 +85,7 @@ async def list_exercise_categories(api_key: Optional[str] = None) -> dict:
 @mcp.tool()
 async def list_equipment(api_key: Optional[str] = None) -> dict:
     """List all available gym equipment types."""
+    _track("list_equipment")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/equipment/",
@@ -95,6 +99,7 @@ async def list_equipment(api_key: Optional[str] = None) -> dict:
 @mcp.tool()
 async def list_muscles(api_key: Optional[str] = None) -> dict:
     """List all muscles available in the exercise database."""
+    _track("list_muscles")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/muscle/",
@@ -108,6 +113,7 @@ async def list_muscles(api_key: Optional[str] = None) -> dict:
 @mcp.tool()
 async def list_workouts(limit: int = 20, offset: int = 0, api_key: Optional[str] = None) -> dict:
     """List all workouts for the authenticated user."""
+    _track("list_workouts")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/workout/",
@@ -121,6 +127,7 @@ async def list_workouts(limit: int = 20, offset: int = 0, api_key: Optional[str]
 @mcp.tool()
 async def get_workout(workout_id: int, api_key: Optional[str] = None) -> dict:
     """Get details of a specific workout by ID."""
+    _track("get_workout")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/workout/{workout_id}/",
@@ -134,6 +141,7 @@ async def get_workout(workout_id: int, api_key: Optional[str] = None) -> dict:
 @mcp.tool()
 async def create_workout(description: str = "", api_key: Optional[str] = None) -> dict:
     """Create a new workout for the authenticated user."""
+    _track("create_workout")
     async with httpx.AsyncClient() as client:
         response = await client.post(
             f"{BASE_URL}/workout/",
@@ -147,6 +155,7 @@ async def create_workout(description: str = "", api_key: Optional[str] = None) -
 @mcp.tool()
 async def delete_workout(workout_id: int, api_key: Optional[str] = None) -> dict:
     """Delete a specific workout by ID."""
+    _track("delete_workout")
     async with httpx.AsyncClient() as client:
         response = await client.delete(
             f"{BASE_URL}/workout/{workout_id}/",
@@ -158,6 +167,7 @@ async def delete_workout(workout_id: int, api_key: Optional[str] = None) -> dict
 
 @mcp.tool()
 async def list_training_days(
+    _track("list_training_days")
     training: Optional[int] = None,
     limit: int = 20,
     offset: int = 0,
@@ -180,6 +190,7 @@ async def list_training_days(
 
 @mcp.tool()
 async def create_training_day(
+    _track("create_training_day")
     workout_id: int,
     description: str = "",
     day: Optional[list] = None,
@@ -201,6 +212,7 @@ async def create_training_day(
 
 @mcp.tool()
 async def list_slots(
+    _track("list_slots")
     day: Optional[int] = None,
     limit: int = 20,
     offset: int = 0,
@@ -224,6 +236,7 @@ async def list_slots(
 @mcp.tool()
 async def create_slot(day_id: int, order: int = 1, api_key: Optional[str] = None) -> dict:
     """Create an exercise slot in a training day."""
+    _track("create_slot")
     async with httpx.AsyncClient() as client:
         response = await client.post(
             f"{BASE_URL}/slot/",
@@ -236,6 +249,7 @@ async def create_slot(day_id: int, order: int = 1, api_key: Optional[str] = None
 
 @mcp.tool()
 async def list_slot_entries(
+    _track("list_slot_entries")
     slot: Optional[int] = None,
     exercise: Optional[int] = None,
     limit: int = 20,
@@ -261,6 +275,7 @@ async def list_slot_entries(
 
 @mcp.tool()
 async def create_slot_entry(
+    _track("create_slot_entry")
     slot_id: int,
     exercise_id: int,
     order: int = 1,
@@ -279,6 +294,7 @@ async def create_slot_entry(
 
 @mcp.tool()
 async def list_workout_logs(
+    _track("list_workout_logs")
     workout: Optional[int] = None,
     exercise: Optional[int] = None,
     limit: int = 20,
@@ -304,6 +320,7 @@ async def list_workout_logs(
 
 @mcp.tool()
 async def create_workout_log(
+    _track("create_workout_log")
     workout_id: int,
     date: str,
     notes: str = "",
@@ -336,6 +353,7 @@ async def create_workout_log(
 
 @mcp.tool()
 async def list_exercise_logs(
+    _track("list_exercise_logs")
     workout: Optional[int] = None,
     exercise: Optional[int] = None,
     limit: int = 20,
@@ -361,6 +379,7 @@ async def list_exercise_logs(
 
 @mcp.tool()
 async def create_exercise_log(
+    _track("create_exercise_log")
     workout_id: int,
     exercise_id: int,
     reps: int,
@@ -392,6 +411,7 @@ async def create_exercise_log(
 @mcp.tool()
 async def list_nutrition_plans(limit: int = 20, offset: int = 0, api_key: Optional[str] = None) -> dict:
     """List all nutrition plans for the authenticated user."""
+    _track("list_nutrition_plans")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/nutritionplan/",
@@ -405,6 +425,7 @@ async def list_nutrition_plans(limit: int = 20, offset: int = 0, api_key: Option
 @mcp.tool()
 async def get_nutrition_plan(plan_id: int, api_key: Optional[str] = None) -> dict:
     """Get details of a specific nutrition plan including nutritional values."""
+    _track("get_nutrition_plan")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/nutritionplan/{plan_id}/nutritional_values/",
@@ -417,6 +438,7 @@ async def get_nutrition_plan(plan_id: int, api_key: Optional[str] = None) -> dic
 
 @mcp.tool()
 async def create_nutrition_plan(
+    _track("create_nutrition_plan")
     description: str = "",
     only_logging: bool = False,
     goal_energy: Optional[float] = None,
@@ -448,6 +470,7 @@ async def create_nutrition_plan(
 
 @mcp.tool()
 async def list_meals(
+    _track("list_meals")
     plan: Optional[int] = None,
     limit: int = 20,
     offset: int = 0,
@@ -470,6 +493,7 @@ async def list_meals(
 
 @mcp.tool()
 async def create_meal(
+    _track("create_meal")
     plan_id: int,
     name: str = "",
     time: Optional[str] = None,
@@ -492,6 +516,7 @@ async def create_meal(
 
 @mcp.tool()
 async def list_meal_items(
+    _track("list_meal_items")
     meal: Optional[int] = None,
     limit: int = 20,
     offset: int = 0,
@@ -514,6 +539,7 @@ async def list_meal_items(
 
 @mcp.tool()
 async def create_meal_item(
+    _track("create_meal_item")
     meal_id: int,
     ingredient_id: int,
     amount: float,
@@ -537,6 +563,7 @@ async def create_meal_item(
 
 @mcp.tool()
 async def search_ingredients(
+    _track("search_ingredients")
     name: str,
     language: Optional[str] = None,
     limit: int = 20,
@@ -561,6 +588,7 @@ async def search_ingredients(
 @mcp.tool()
 async def get_ingredient(ingredient_id: int, api_key: Optional[str] = None) -> dict:
     """Get nutritional details of a specific ingredient/food item."""
+    _track("get_ingredient")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/ingredient/{ingredient_id}/",
@@ -573,6 +601,7 @@ async def get_ingredient(ingredient_id: int, api_key: Optional[str] = None) -> d
 
 @mcp.tool()
 async def list_body_weight(
+    _track("list_body_weight")
     limit: int = 20,
     offset: int = 0,
     api_key: Optional[str] = None
@@ -590,6 +619,7 @@ async def list_body_weight(
 
 @mcp.tool()
 async def create_body_weight_entry(
+    _track("create_body_weight_entry")
     date: str,
     weight: float,
     api_key: Optional[str] = None
@@ -608,6 +638,7 @@ async def create_body_weight_entry(
 @mcp.tool()
 async def list_measurement_categories(api_key: Optional[str] = None) -> dict:
     """List all custom measurement categories for the authenticated user."""
+    _track("list_measurement_categories")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/measurement-category/",
@@ -621,6 +652,7 @@ async def list_measurement_categories(api_key: Optional[str] = None) -> dict:
 @mcp.tool()
 async def create_measurement_category(name: str, unit: str, api_key: Optional[str] = None) -> dict:
     """Create a custom measurement category (e.g. 'Bicep' with unit 'cm')."""
+    _track("create_measurement_category")
     async with httpx.AsyncClient() as client:
         response = await client.post(
             f"{BASE_URL}/measurement-category/",
@@ -633,6 +665,7 @@ async def create_measurement_category(name: str, unit: str, api_key: Optional[st
 
 @mcp.tool()
 async def list_measurements(
+    _track("list_measurements")
     category: Optional[int] = None,
     limit: int = 20,
     offset: int = 0,
@@ -655,6 +688,7 @@ async def list_measurements(
 
 @mcp.tool()
 async def create_measurement(
+    _track("create_measurement")
     category_id: int,
     date: str,
     value: float,
@@ -675,6 +709,7 @@ async def create_measurement(
 @mcp.tool()
 async def get_user_profile(api_key: Optional[str] = None) -> dict:
     """Get the profile information of the currently authenticated user."""
+    _track("get_user_profile")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/userprofile/",
@@ -688,6 +723,7 @@ async def get_user_profile(api_key: Optional[str] = None) -> dict:
 @mcp.tool()
 async def get_api_info(api_key: Optional[str] = None) -> dict:
     """Get general API information and available endpoints."""
+    _track("get_api_info")
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{BASE_URL}/",
